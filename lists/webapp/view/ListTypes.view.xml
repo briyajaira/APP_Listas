@@ -1,0 +1,113 @@
+<mvc:View xmlns:charts="sap.ca.ui.charts"
+    controllerName="logaligroup.lists.controller.ListTypes"
+    xmlns:mvc="sap.ui.core.mvc"
+    xmlns:core="sap.ui.core"
+    xmlns:layout="sap.ui.layout"
+    xmlns="sap.m"
+    displayBlock="true"
+>
+    <Shell id="shell">
+        <App id="app">
+            <pages>
+                <Page id="page" title="{i18n>title}">
+                    <content>
+                        <IconTabBar id="iconTab">
+                          <items>
+                            <IconTabFilter id="IconTabOL" text="{i18n>objectList}">
+                                <List id="listProd" items="{path : '/Products',
+                                                            filters : [{
+                                                                path : 'Brand',
+                                                                operator : 'EQ',
+                                                                value1 : 'Compaq'
+                                                            }]}">
+                                    <items>
+                                        <ObjectListItem id="objList" title="{Materia} {Brand} {Model}"
+                                                                     number="{Price}"
+                                                                     numberUnit="{Currency}"
+                                                                     type="Detail">
+                                           <ObjectAttribute id="objAtB" text="{Brand}"/>  
+                                           <ObjectAttribute id="objAtW" text="{Weight}"/>                          
+                                        </ObjectListItem>
+                                    </items>
+                                </List>
+                            </IconTabFilter>
+
+                            <IconTabFilter id="IconTabSL" text="{i18n>standardList}">
+                                <Select id="SelecType" selectedKey="{/typeSelection}">
+                                    <items>
+                                        <core:Item id="itemNon" key="None" text="{i18n>none}"/>
+                                        <core:Item id="itemulS" key="MultiSelect" text="{i18n>multiSelect}"/>
+                                        <core:Item id="itemSS" key="SingleSelect" text="{i18n>singleSelect}"/>
+                                        <core:Item id="itemSL" key="SingleSelectLeft" text="{i18n>singleSelectleft}"/>
+                                        <core:Item id="itemSM" key="SingleSelectMaster" text="{i18n>singleSelectMaster}"/>
+                                    </items>
+                                </Select>
+
+                                <Button id="butSel" text="{i18n>showSelectedItems}" press="onShowSelectedRows" class="sapUiSmallMarginBegin"/>
+                                <Button id="butDel" text="{i18n>deleteSelectedItems}" press="onDeleteSelectedRows" class="sapUiSmallMarginBegin"/>
+
+                                <List id="standardList" items="{ path : '/Products',
+                                             sorter: {
+                                                 path : 'Brand',
+                                                 descending : false,
+                                                 group : true
+                                             },
+                                             groupHeaderFactory : '.getGroupHeader'}"
+                                             mode="{/typeSelection}">
+                                    <items>
+                                        <StandardListItem id="objListS" title="{Materia} {Brand} {Model}"
+                                                                        description="{Price}"
+                                                                        info="{Price} {Currency}"
+                                                                        type="Active">                         
+                                        </StandardListItem>
+                                    </items>
+                                </List>                            
+                            </IconTabFilter>
+
+                            <IconTabFilter id="IconTabIL" text="{i18n>inputList}">
+                                <List id="listProdIL" items="{/Products}" mode="Delete" delete="onDeleteRow">
+                                    <items>
+                                        <InputListItem id="inputLI" label="{Brand}">
+                                        <Select items="{Properties}" id="selectItems">      
+                                            <core:Item id="item" key="{Id}" text="{Text}"/>                 
+                                        </Select>
+                                        </InputListItem>
+                                    </items>
+                                </List>                                
+                            </IconTabFilter>
+
+                            <IconTabFilter id="IconTabNL" text="{i18n>notificationList}">
+                                <List id="listProdNot" items="{/News}">
+                                    <items>
+                                        <NotificationListItem id="notList" title="{Title}"
+                                                                           description="{Description}"
+                                                                           unread="{Unread}"
+                                                                           authorName="{Author}"
+                                                                           priority="{Priority}"
+                                                                           showCloseButton="{ShowCloseButton}"/>
+                                    </items>
+                                </List>                               
+                            </IconTabFilter>
+
+                            <IconTabFilter id="IconTabC" text="{i18n>customList}">
+                                <List id="listCust" items="{/News}">
+                                    <items>
+                                       <CustomListItem id="CustLis">
+                                            <layout:Grid defaultSpan="XL3 L3 M6 S12" id="gridLay">
+                                                <Text id="texTit"  text="{Title}"/>
+                                                <Text id="texAut"  text="{Author}"/>
+                                                <Text id="texDesc" text="{Description}"/> 
+                                            </layout:Grid>
+                                       </CustomListItem>
+                                    </items>
+                                </List>                                       
+                            </IconTabFilter>
+
+                          </items>  
+                        </IconTabBar>
+                    </content>
+                </Page>
+            </pages>
+        </App>
+    </Shell>
+</mvc:View>
